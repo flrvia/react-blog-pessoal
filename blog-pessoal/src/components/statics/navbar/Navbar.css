@@ -1,0 +1,16 @@
+.searchIcon {
+    padding: 10px;
+    height: 1.3vw;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.search {
+    position: relative;
+    border-radius: 10px;
+    background-color: rgba(66, 66, 66, 0.473);
+    margin-left: 0;
+    width: 20vw;
+    margin-left: 60vw;
+  }

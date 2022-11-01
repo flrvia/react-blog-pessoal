@@ -1,0 +1,42 @@
+.flaviaFooter{
+    color: #fff;
+    
+}
+.boxFooter{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+.FooterPrincipal{
+    background: linear-gradient(140deg, rgba(173,0,195,1) 0%, rgba(0,11,102,1) 100%);
+    align-items:center;
+}
+.social{
+    display:flex;
+    
+    justify-content: center;
+    color: #fff;
+    flex-direction: column;
+}
+.icones{
+    margin-inline: 30px;
+}
+.iconesPrincipal{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.siga{
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    margin-top: 20px;
+}
+.copyright{
+    color: #fff;
+    margin-top: 20px;
+    text-align: center;
+}
+.copyright2{
+    font-size: 5px;
+}
