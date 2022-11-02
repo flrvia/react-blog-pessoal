@@ -8,7 +8,7 @@
     margin-top: 5px;
 }
 .FooterPrincipal{
-    background: linear-gradient(140deg, rgba(173,0,195,1) 0%, rgba(0,11,102,1) 100%);
+    background: linear-gradient(155deg, rgba(140,1,135,0.8575805322128851) 22%, rgba(249,150,0,0.7931547619047619) 50%, rgba(103,1,180,0.7511379551820728) 81%);
     align-items:center;
 }
 .social{
@@ -38,5 +38,5 @@
     text-align: center;
 }
 .copyright2{
-    font-size: 5px;
+    font-size: 1rem;
 }

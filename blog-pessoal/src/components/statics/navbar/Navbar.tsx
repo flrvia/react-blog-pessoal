@@ -8,10 +8,13 @@ import InputBase from '@material-ui/core/InputBase';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -64,21 +67,47 @@ searchIcon: {
   },
 }));
 
+
+
 export default function Navbar() {
   const classes = useStyles();
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div className={classes.root} >
+      <AppBar className='navbar' position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className='classes.menuButton'
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+        <div>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+        <MenuIcon />
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <Link to='/home' className='text-decorator-none'>
+        <MenuItem onClick={handleClose}>Home</MenuItem>
+        </Link>
+        <MenuItem onClick={handleClose}>Postagens</MenuItem>
+        <MenuItem onClick={handleClose}>Temas</MenuItem>
+        <MenuItem onClick={handleClose}>Cadastrar Temas</MenuItem>
+        <Link to='/login' className='text-decorator-none'>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </Link>
+      </Menu>
+    </div>
           <Typography className='classes.title' variant="h6" noWrap>
             Blog Pessoal
           </Typography>
