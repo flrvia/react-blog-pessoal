@@ -1,27 +1,85 @@
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import { Box } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { ChangeEvent, useState, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import useLocalStorage from 'react-use-localstorage';
+import UsuarioLogin from "../../model/UsuarioLogin";
+import { login } from "../../service/Service";
 import "./Login.css";
+import { api } from '../../service/Service'
 
 function Login() {
+
+  let navigate = useNavigate();
+
+  const[token, setToken] = useLocalStorage('token');
+
+  const [UsuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
+    id: 0,
+    nome: "",
+    usuario: "",
+    senha: "",
+    foto: "",
+    token: "",
+  });
+
+  //Atualizar a model com o que o usuário digitar no input
+  function updateModel(event: ChangeEvent<HTMLInputElement>) {
+
+    setUsuarioLogin({
+      ...UsuarioLogin,
+      [event.target.name]: event.target.value
+    });
+  }
+
+    useEffect(()=>{
+      if(token != ''){
+        navigate('/home')
+      }
+    }, [token])
+
+  async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
+    event.preventDefault();
+    try {
+      const resposta = await api.post('/usuarios/logar', UsuarioLogin)
+      setToken(resposta.data.token)
+
+      alert('Usuário logado com sucesso!');
+    } catch (error) {
+      alert('Dados do usuário inconssistentes. Erro ao logar.')
+    }
+  }
+
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <Grid alignItems="center" item xs={6}>
         <Box paddingX={20}>
-          <form>
+          <form onSubmit={onSubmit}>
             <Typography variant="h3" align="center">
               Entrar
             </Typography>
-            <TextField label="Usuário (e-mail)" name="usuario" fullWidth />
-            <TextField label="Senha" name="senha" type="password" fullWidth />
+            <TextField
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                updateModel(event)
+              }
+              value={UsuarioLogin.usuario}
+              label="Usuário (e-mail)"
+              name="usuario"
+              fullWidth
+            />
+            <TextField 
+             onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              updateModel(event)
+            }
+            value={UsuarioLogin.senha}
+            label="Senha" 
+            name="senha" 
+            type="password" 
+            fullWidth />
             <Box marginTop={2} textAlign="center">
-              <Link to="/home" className="text-decorator-none">
                 <Button type="submit" variant="contained" color="primary">
                   Entrar
                 </Button>
-              </Link>
             </Box>
           </form>
         </Box>
@@ -33,14 +91,20 @@ function Login() {
             </Typography>
           </Box>
           <Box>
-            <Typography variant="subtitle1" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
-               Cadastre-se
+            <Link to='/cadastrar'>
+            <Typography
+              variant="subtitle1"
+              align="center"
+              gutterBottom
+              style={{ fontWeight: "bold" }}
+            >
+              Cadastre-se
             </Typography>
+            </Link>
           </Box>
         </Box>
       </Grid>
 
-      
       <Grid item xs={6} className="fundoLogin"></Grid>
     </Grid>
   );

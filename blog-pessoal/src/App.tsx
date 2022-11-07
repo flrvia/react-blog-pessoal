@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import "./App.css";
 import Home from "./paginas/home/Home";
 import Login from "./paginas/login/Login";
+import CadastroUsuario from "./paginas/cadastroUsuario/CadastroUsuario";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
           <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />}/>
           <Route path='/home' element={<Home />}/>
-        </Routes>
+          <Route path='/cadastrar' element={<CadastroUsuario />}/>
+          </Routes>
       </div>
       <Footer/>
     </Router>

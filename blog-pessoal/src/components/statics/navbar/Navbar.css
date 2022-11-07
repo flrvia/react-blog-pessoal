@@ -22,3 +22,8 @@
 .navbar{
   background: linear-gradient(155deg, rgba(140,1,135,0.8575805322128851) 22%, rgba(249,150,0,0.7931547619047619) 50%, rgba(103,1,180,0.7511379551820728) 81%) !important;
 }
+
+.cursor{
+  cursor: pointer;
+  color: white;
+}
