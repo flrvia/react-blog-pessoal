@@ -1,20 +1,19 @@
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import { Box } from "@mui/material";
 import React, { ChangeEvent, useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
-import UsuarioLogin from "../../model/UsuarioLogin";
+import { Link, useNavigate } from "react-router-dom";
+import useLocalStorage from "react-use-localstorage";
+import UserLogin from "../../model/UserLogin";
 import { login } from "../../service/Service";
 import "./Login.css";
-import { api } from '../../service/Service'
+import { api } from "../../service/Service";
 
 function Login() {
-
   let navigate = useNavigate();
 
-  const[token, setToken] = useLocalStorage('token');
+  const [token, setToken] = useLocalStorage("token");
 
-  const [UsuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
+  const [UserLogin, setUserLogin] = useState<UserLogin>({
     id: 0,
     nome: "",
     usuario: "",
@@ -25,28 +24,26 @@ function Login() {
 
   //Atualizar a model com o que o usuário digitar no input
   function updateModel(event: ChangeEvent<HTMLInputElement>) {
-
-    setUsuarioLogin({
-      ...UsuarioLogin,
-      [event.target.name]: event.target.value
+    setUserLogin({
+      ...UserLogin,
+      [event.target.name]: event.target.value,
     });
   }
 
-    useEffect(()=>{
-      if(token != ''){
-        navigate('/home')
-      }
-    }, [token])
+  useEffect(() => {
+    if (token != "") {
+      navigate("/home");
+    }
+  }, [token]);
 
   async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      const resposta = await api.post('/usuarios/logar', UsuarioLogin)
-      setToken(resposta.data.token)
+      await login("/usuarios/logar", UserLogin, setToken);
 
-      alert('Usuário logado com sucesso!');
+      alert("Usuário logado com sucesso!");
     } catch (error) {
-      alert('Dados do usuário inconssistentes. Erro ao logar.')
+      alert("Dados do usuário inconssistentes. Erro ao logar.");
     }
   }
 
@@ -62,24 +59,25 @@ function Login() {
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 updateModel(event)
               }
-              value={UsuarioLogin.usuario}
+              value={UserLogin.usuario}
               label="Usuário (e-mail)"
               name="usuario"
               fullWidth
             />
-            <TextField 
-             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              updateModel(event)
-            }
-            value={UsuarioLogin.senha}
-            label="Senha" 
-            name="senha" 
-            type="password" 
-            fullWidth />
+            <TextField
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                updateModel(event)
+              }
+              value={UserLogin.senha}
+              label="Senha"
+              name="senha"
+              type="password"
+              fullWidth
+            />
             <Box marginTop={2} textAlign="center">
-                <Button type="submit" variant="contained" color="primary">
-                  Entrar
-                </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Entrar
+              </Button>
             </Box>
           </form>
         </Box>
@@ -91,15 +89,15 @@ function Login() {
             </Typography>
           </Box>
           <Box>
-            <Link to='/cadastrar'>
-            <Typography
-              variant="subtitle1"
-              align="center"
-              gutterBottom
-              style={{ fontWeight: "bold" }}
-            >
-              Cadastre-se
-            </Typography>
+            <Link to="/cadastrar">
+              <Typography
+                variant="subtitle1"
+                align="center"
+                gutterBottom
+                style={{ fontWeight: "bold" }}
+              >
+                Cadastre-se
+              </Typography>
             </Link>
           </Box>
         </Box>
