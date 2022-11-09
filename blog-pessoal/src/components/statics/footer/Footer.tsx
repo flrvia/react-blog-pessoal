@@ -9,9 +9,9 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 function Footer(){
     return(
         <>
-        <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Grid className='FooterPrincipal' item xs={12}>
-                    <Box >
+        <Grid  container direction="row" justifyContent="center" alignItems="center">
+                <Grid  className='FooterPrincipal' item xs={12}>
+                    <Box className='footerSiga'>
                         <Box className='siga'>
                             <Typography  variant="h6">Siga-nos nas redes sociais </Typography>
                         </Box>

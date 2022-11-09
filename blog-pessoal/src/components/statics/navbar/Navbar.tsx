@@ -9,7 +9,8 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { Button, Menu, MenuItem } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useLocalStorage from 'react-use-localstorage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Navbar() {
+
+  const [token, setToken] = useLocalStorage('token');
+  let navigate = useNavigate();
+
+  function goLogout(){
+    setToken('')
+    alert("Usuário deslogado")
+    navigate('/login')
+  }
+  
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -83,10 +94,10 @@ export default function Navbar() {
         <Link to='/temas' className='text-decorator-none'>
         <MenuItem onClick={handleClose}>Temas</MenuItem>
         </Link>
+        <Link to='/formularioTema' className='text-decorator-none'>
         <MenuItem onClick={handleClose}>Cadastrar Temas</MenuItem>
-        <Link to='/login' className='text-decorator-none'>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Link>
+        <MenuItem className='text-decorator-none' onClick={goLogout}>Logout</MenuItem>
       </Menu>
     </div>
           <Typography className='classes.title' variant="h6" noWrap>

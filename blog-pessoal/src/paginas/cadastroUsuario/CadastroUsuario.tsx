@@ -67,9 +67,9 @@ function CadastroUsuario() {
               value={user.nome}
               onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
               id="nome"
-              label="nome"
+              label="Nome"
               variant="outlined"
-              name="nome"
+              name="Nome"
               margin="normal"
               fullWidth
             />
@@ -77,7 +77,7 @@ function CadastroUsuario() {
               value={user.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
               id="usuario"
-              label="usuario"
+              label="Usuário (E-mail)"
               variant="outlined"
               name="usuario"
               margin="normal"
@@ -87,7 +87,7 @@ function CadastroUsuario() {
               value={user.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
               id="senha"
-              label="senha"
+              label="Senha"
               variant="outlined"
               name="senha"
               margin="normal"
@@ -100,7 +100,7 @@ function CadastroUsuario() {
                 confirmarSenhaHandle(e)
               }
               id="confirmarSenha"
-              label="confirmarSenha"
+              label="Confirmar Senha"
               variant="outlined"
               name="confirmarSenha"
               margin="normal"
