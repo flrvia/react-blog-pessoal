@@ -77,8 +77,12 @@ export default function Navbar() {
         <Link to='/home' className='text-decorator-none'>
         <MenuItem onClick={handleClose}>Home</MenuItem>
         </Link>
+        <Link to='/postagens' className='text-decorator-none'>
         <MenuItem onClick={handleClose}>Postagens</MenuItem>
+        </Link>
+        <Link to='/temas' className='text-decorator-none'>
         <MenuItem onClick={handleClose}>Temas</MenuItem>
+        </Link>
         <MenuItem onClick={handleClose}>Cadastrar Temas</MenuItem>
         <Link to='/login' className='text-decorator-none'>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
