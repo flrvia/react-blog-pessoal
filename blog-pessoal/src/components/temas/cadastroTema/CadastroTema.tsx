@@ -37,7 +37,7 @@ function CadastroTema() {
 
   //Serve para buscar o nosso tema pelo id
   async function findById(id : string) {
-    buscaId(`/tema/${id}`, setTema, {
+    buscaId(`/temas/${id}`, setTema, {
         headers:{
             'Authorization': token
         }
@@ -64,7 +64,7 @@ function CadastroTema() {
         })
         alert("Tema atualizado com sucesso");
     } else {
-        post(`/tema`, tema, setTema, {
+        post(`/temas`, tema, setTema, {
             headers: {
                 'Authorization': token
             }
