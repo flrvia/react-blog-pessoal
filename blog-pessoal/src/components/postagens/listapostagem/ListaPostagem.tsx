@@ -9,8 +9,12 @@ import { busca } from '../../../service/Service';
 
 function ListaPostagem() {
 
+    // Data -> Postagem feita em: {new Date(Data.parse(postagem.data)).toLocaleDateString('pt-br')}
+
     const [postagens, setPostagens] = useState<Postagem[]>([])
+
     const [token, setToken] = useLocalStorage('token');
+
     let navigate = useNavigate();
   
     useEffect(() => {
@@ -44,14 +48,20 @@ function ListaPostagem() {
               Postagens
             </Typography>
             <Typography variant="h5" component="h2">
-              Título
+              {postagem.titulo}
             </Typography>
             <Typography variant="body2" component="p">
-              Texto da Postagem
+              {postagem.texto}
             </Typography>
             <Typography variant="body2" component="p">
-              Tema
+            Postagem feita em: {new Date(Date.parse(postagem.data)).toLocaleString()}
             </Typography>
+            <Typography variant="body2" component="p">
+              {postagem?.tema?.descricao}
+            </Typography>
+            
+
+
           </CardContent>
           <CardActions>
             <Box display="flex" justifyContent="center" mb={1.5}>
