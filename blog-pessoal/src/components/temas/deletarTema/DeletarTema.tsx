@@ -8,10 +8,11 @@ import {
 } from "@material-ui/core";
 import "./DeletarTema.css";
 import { useNavigate, useParams } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
 import { Box } from "@mui/material";
 import Tema from "../../../model/Tema";
 import { buscaId, deleteId } from "../../../service/Service";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../../store/tokens/tokensReducer";
 
 function DeletarTema() {
   let navigate = useNavigate();
@@ -20,7 +21,9 @@ function DeletarTema() {
   const { id } = useParams<{ id: string }>();
 
   // Ver se o token esta armazenado, para que esteja logado
-  const [token, setToken] = useLocalStorage("token");
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  )
 
   //Incializar vazio para que o usuário possa preencher e mandarmos para o nosso banco de dados -> memória temporária
   const [tema, setTema] = useState<Tema>();

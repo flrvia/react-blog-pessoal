@@ -12,10 +12,11 @@ import {
 } from "@material-ui/core";
 import "./CadastroPost.css";
 import { useNavigate, useParams } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
 import Tema from "../../../model/Tema";
 import Postagem from "../../../model/Postagem";
 import { busca, buscaId, post, put } from "../../../service/Service";
+import { TokenState } from "../../../store/tokens/tokensReducer";
+import { useSelector } from "react-redux";
 
 function CadastroPost() {
   let navigate = useNavigate();
@@ -24,7 +25,9 @@ function CadastroPost() {
 
   const [temas, setTemas] = useState<Tema[]>([]);
 
-  const [token, setToken] = useLocalStorage("token");
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  )
 
   useEffect(() => {
     if (token === "") {
@@ -104,7 +107,7 @@ function CadastroPost() {
             Authorization: token,
           },
         });
-        alert("postagem feita com sucesso");
+        alert("Postagem feita com sucesso");
       } catch (error) {
         alert("Falha ao cadastrar a postagem");
       }
@@ -133,7 +136,7 @@ function CadastroPost() {
             updatedPostagem(event)
           }
           id="titulo"
-          label="titulo"
+          label="Título"
           variant="outlined"
           name="titulo"
           margin="normal"
@@ -141,11 +144,11 @@ function CadastroPost() {
         />
         <TextField
            id='texto' 
-           value={postagem.titulo}
+           value={postagem.texto}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             updatedPostagem(event)
           }
-          label="texto"
+          label="Texto"
           name="texto"
           variant="outlined"
           margin="normal"
@@ -172,7 +175,7 @@ function CadastroPost() {
             ))}
           </Select>
           <FormHelperText>Escolha um tema para a postagem</FormHelperText>
-          // O botão fica desabilitado enquanto o tema estiver nulo
+          
           <Button
             type="submit"
             variant="contained"

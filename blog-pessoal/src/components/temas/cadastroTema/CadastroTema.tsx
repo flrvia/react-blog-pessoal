@@ -1,9 +1,10 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { useNavigate, useParams } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
 import Tema from "./../../../model/Tema";
 import { buscaId, post, put } from "./../../../service/Service";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../../store/tokens/tokensReducer";
 
 function CadastroTema() {
   let navigate = useNavigate();
@@ -12,7 +13,9 @@ function CadastroTema() {
   const { id } = useParams<{ id: string }>();
 
   // Ver se o token esta armazenado, para que esteja logado
-  const [token, setToken] = useLocalStorage("token");
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  )
 
   //Incializar vazio para que o usuário possa preencher e mandarmos para o nosso banco de dados -> memória temporária
   const [tema, setTema] = useState<Tema>({

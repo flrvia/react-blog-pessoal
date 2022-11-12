@@ -1,17 +1,18 @@
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import { Box } from "@mui/material";
 import React, { ChangeEvent, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
 import UserLogin from "../../model/UserLogin";
 import { login } from "../../service/Service";
+import { addToken } from "../../store/tokens/actions";
 import "./Login.css";
-import { api } from "../../service/Service";
 
 function Login() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [token, setToken] = useLocalStorage("token");
+  const [token, setToken] = useState('');
 
   const [UserLogin, setUserLogin] = useState<UserLogin>({
     id: 0,
@@ -32,6 +33,7 @@ function Login() {
 
   useEffect(() => {
     if (token != "") {
+      dispatch(addToken(token))
       navigate("/home");
     }
   }, [token]);

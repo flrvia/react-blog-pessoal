@@ -4,8 +4,9 @@ import { Card, CardActions, CardContent, Button, Typography } from '@material-ui
 import './ListaPostagem.css';
 import { Box } from '@mui/material';
 import Postagem from '../../../model/Postagem';
-import useLocalStorage from 'react-use-localstorage';
 import { busca } from '../../../service/Service';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
 function ListaPostagem() {
 
@@ -13,7 +14,9 @@ function ListaPostagem() {
 
     const [postagens, setPostagens] = useState<Postagem[]>([])
 
-    const [token, setToken] = useLocalStorage('token');
+    const token = useSelector<TokenState, TokenState["tokens"]>(
+      (state) => state.tokens
+    )
 
     let navigate = useNavigate();
   
@@ -56,7 +59,7 @@ function ListaPostagem() {
             <Typography variant="body2" component="p">
             Postagem feita em: {new Date(Date.parse(postagem.data)).toLocaleString()}
             </Typography>
-            <Typography variant="body2" component="p">
+            <Typography variant="body2" component="p"> Tema: &nbsp; 
               {postagem?.tema?.descricao}
             </Typography>
             

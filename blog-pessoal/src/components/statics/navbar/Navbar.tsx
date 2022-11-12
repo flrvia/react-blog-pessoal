@@ -10,7 +10,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { useDispatch } from 'react-redux';
+import { addToken } from '../../../store/tokens/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,14 +52,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
 
-  const [token, setToken] = useLocalStorage('token');
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  )
+  
   let navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   function goLogout(){
-    setToken('')
+    dispatch(addToken(''))
     alert("Usuário deslogado")
     navigate('/login')
   }
+
+  var navbarComponent;
+
   
   const classes = useStyles();
 
@@ -69,9 +80,11 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
 
-  return (
-    <div className={classes.root} >
+  if(token !== ""){
+      navbarComponent =
+      <div className={classes.root} >
       <AppBar className='navbar' position="static">
         <Toolbar>
         <div>
@@ -119,5 +132,12 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
     </div>
+  }
+
+
+  return (
+   <>
+   {navbarComponent}
+   </>
   );
 }
