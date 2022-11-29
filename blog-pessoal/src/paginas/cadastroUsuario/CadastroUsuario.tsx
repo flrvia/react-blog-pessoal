@@ -4,6 +4,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import User from "../../model/User";
 import { cadastroUsuario } from "../../service/Service";
+import SetaVoltarIcone from "@mui/icons-material/ArrowBack";
 import "./CadastroUsuario.css";
 
 function CadastroUsuario() {
@@ -54,21 +55,36 @@ function CadastroUsuario() {
   }
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Grid item xs={6} className="imagem2"></Grid>
-
-      <Grid item xs={6} alignItems="center">
+    <Grid
+    container
+    direction="row"
+    justifyContent="center"
+    alignItems="center"
+    className="fundoLogin"
+  >
+    <Grid alignItems="center">
+      <Link to="/">
+        <SetaVoltarIcone className="seta" />
+      </Link>
+      <Box className="mod-login">
         <Box paddingX={20}>
           <form onSubmit={onSubmit}>
-            <Typography variant="h3" align="center">
-              Cadastrar
+            <Typography
+              variant="h3"
+              gutterBottom
+              color="textPrimary"
+              component="h3"
+              align="center"
+              className="textos1"
+            >
+              Cadastre-se
             </Typography>
+
             <TextField
               value={user.nome}
               onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
               id="nome"
               label="Nome"
-              variant="outlined"
               name="Nome"
               margin="normal"
               fullWidth
@@ -78,7 +94,6 @@ function CadastroUsuario() {
               onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
               id="usuario"
               label="Usuário (E-mail)"
-              variant="outlined"
               name="usuario"
               margin="normal"
               fullWidth
@@ -88,7 +103,6 @@ function CadastroUsuario() {
               onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
               id="senha"
               label="Senha"
-              variant="outlined"
               name="senha"
               margin="normal"
               type="password"
@@ -101,13 +115,12 @@ function CadastroUsuario() {
               }
               id="confirmarSenha"
               label="Confirmar Senha"
-              variant="outlined"
               name="confirmarSenha"
               margin="normal"
               type="password"
               fullWidth
             />
-            <Box marginTop={2} textAlign="center">
+<Box marginTop={2} textAlign="center">
               <Link to="/login" className="text-decorator-none">
                 <Button
                   variant="contained"
@@ -122,9 +135,35 @@ function CadastroUsuario() {
               </Button>
             </Box>
           </form>
+
+          <Box display="flex" justifyContent="center" marginTop={2}>
+            <Box marginRight={1}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                align="center"
+                className="textos2"
+              >
+                Não tem uma conta?
+              </Typography>
+            </Box>
+            <Box>
+              <Link to="/cadastrar">
+                <Typography
+                  variant="subtitle1"
+                  align="center"
+                  gutterBottom
+                  className="text-cadastrar"
+                >
+                  Cadastre-se
+                </Typography>
+              </Link>
+            </Box>
+          </Box>
         </Box>
-      </Grid>
+      </Box>
     </Grid>
+  </Grid>
   );
 }
 
